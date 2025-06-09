@@ -1,0 +1,20 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8" />
+    <title>Аватар Проект - Начална страница</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% block content %}
+        <header>
+            <h1>Добре дошли в Аватар Проекта!</h1>
+            <p>Открий своите силни и слаби страни чрез нашия интерактивен тест.</p>
+        </header>
+    {% endblock %}
+
+</body>
+</html>
