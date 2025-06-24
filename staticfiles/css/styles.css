@@ -1,8 +1,10 @@
+@import "navigation.css";
+@import "details.css";
+
 body {
     font-family: Arial, sans-serif;
     max-width: 600px;
-    margin: 40px auto;
-    padding: 0 20px;
+    margin: auto;
     background-color: #f9f9f9;
     color: #333;
 }
@@ -12,22 +14,6 @@ header {
 }
 
 
-a {
-    display: inline-block;
-    margin: 10px 15px;
-    padding: 12px 18px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-
-}
-
-a:hover {
-    background-color: #45a049;
-}
 
 
 

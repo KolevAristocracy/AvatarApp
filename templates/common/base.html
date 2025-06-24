@@ -4,19 +4,25 @@
 <html lang="bg">
 <head>
     <meta charset="UTF-8" />
-    <title>Аватар Проект - Начална страница</title>
+    <title>Avatar Project - Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <nav class="bg-transparent-400 p-4 grid grid-cols-2-gond-medium">
+        <div class="flex justify-start">
+            <a href="{% url 'start-quiz' %}">Start Test</a>
+            <a href="#">My Profile</a>
+            <a href="#">Results and Graphs</a>
+        </div>
+    </nav>
 
     {% block content %}
     {% endblock %}
-    {% block nav %}
-    {% include 'common/nav.html' %}
-    {% endblock %}
 
-    {% include 'common/footer.html' %}
 
+    <footer>
+         &copy; 2025 Avatar Project
+    </footer>
 </body>
 </html>
