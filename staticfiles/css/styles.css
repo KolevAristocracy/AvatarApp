@@ -1,25 +1,5 @@
+@import "tailwindcss";
 @import "navigation.css";
 @import "details.css";
 
-body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: auto;
-    background-color: #f9f9f9;
-    color: #333;
-}
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
 
-
-
-
-
-footer {
-    margin-top: 60px;
-    text-align: center;
-    font-size: 0.9em;
-    color: #777;
-}
