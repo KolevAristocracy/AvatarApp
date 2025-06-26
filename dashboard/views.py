@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from attributes.models import Attribute
 from quiz_system.models import UserAnswer
@@ -6,8 +7,6 @@ from quiz_system.models import UserAnswer
 
 # Create your views here.
 
-def index_view(request):
-    return render(request, 'common/index.html')
 
 def dashboard_view(request):
     attributes = Attribute.objects.all()  # Getting all attributes (skills)

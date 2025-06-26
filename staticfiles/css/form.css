@@ -1,0 +1,44 @@
+.form {
+    max-width: 460px;
+    margin: 60px auto;
+    padding: 50px;
+    text-align: center;
+    border-radius: 15px; /* emphasized rounding */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+.form label {
+    font-size: 18px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+
+.form input {
+    border-radius: 12px;
+    border: 1px solid rgb(92, 102, 113);
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.form input:focus,
+  .form textarea:focus {
+    box-shadow: 0 0 12px rgba(150, 183, 234, 0.4);
+    transform: scale(1.02);
+  }
+
+
+.form:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(150, 183, 234, 0.4);
+  }
+
+.form button {
+    font-size: 18px;
+    margin-top: 40px;
+    width: 60%;
+    height: 40px;
+    border-radius: 8px;
+}

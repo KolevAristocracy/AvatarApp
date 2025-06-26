@@ -8,13 +8,22 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <nav>
-        <div class="topnav">
-            <a href="{% url 'start-quiz' %}">Start Test</a>
-            <a href="#">My Profile</a>
-            <a href="#">Results and Graphs</a>
-        </div>
-    </nav>
+    {% if user.is_authenticated %}
+        <nav>
+            <div class="topnav">
+                <a href="{% url 'start-quiz' %}">Start Test</a>
+                <a href="#">My Profile</a>
+                <a href="#">Results and Graphs</a>
+            </div>
+        </nav>
+    {% else %}
+        <nav>
+            <div class="topnav">
+                <a href="{% url 'login-user' %}">Login</a>
+                <a href="{% url 'register-user' %}">Register</a>
+            </div>
+        </nav>
+    {% endif %}
 
     {% block content %}
     {% endblock %}

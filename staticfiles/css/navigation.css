@@ -12,7 +12,7 @@ body {
 }
 
 .topnav a {
-  float: left;
+  float: right;
   display: block;
   color: #f2f2f2;
   text-align: center;
@@ -30,6 +30,7 @@ header {
 }
 
 div {
+  text-align: justify;
   justify-items: center;
   padding: 10px;
 }

@@ -35,6 +35,7 @@ PROJECT_APPS = [
     'attributes',
     'quiz_system',
     'users',
+    'common',
 ]
 
 INSTALLED_APPS = [
