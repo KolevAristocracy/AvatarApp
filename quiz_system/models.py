@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
 
+from accounts.models import CustomUser
 from attributes.models import Attribute
 
 # Create your models here.
@@ -24,6 +24,6 @@ class Answer(models.Model):
 
 
 class UserAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     submitted_at = models.DateTimeField(auto_now_add=True)

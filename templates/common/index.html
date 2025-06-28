@@ -22,11 +22,19 @@
                 It's not just about achieving material success, but also about cultivating meaningful friendships,
                 healthy relationships, and a deeper awareness of oneself.
             </p>
-                <form class="begin-form" action="{% url 'register-user' %}">
-                    <button class="btn-1">
-                        Start Your Growth
-                    </button>
-                </form>
+                {% if not user.is_authenticated %}
+                    <form class="begin-form" action="{% url 'register-user' %}">
+                        <button class="btn-1">
+                            Start Your Growth
+                        </button>
+                    </form>
+                    {% else %}
+                        <form class="begin-form" action="{% url 'start-quiz' %}">
+                        <button class="btn-1">
+                            Start Test
+                        </button>
+                    </form>
+                {% endif %}
 
         </div>
     {% endblock %}

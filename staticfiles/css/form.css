@@ -1,9 +1,9 @@
 .form {
     max-width: 460px;
     margin: 60px auto;
-    padding: 50px;
+    padding: 20px;
     text-align: center;
-    border-radius: 15px; /* emphasized rounding */
+    border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -18,8 +18,8 @@
 .form input {
     border-radius: 12px;
     border: 1px solid rgb(92, 102, 113);
-    width: 300px;
-    height: 40px;
+    width: 250px;
+    height: 30px;
     font-size: 16px;
 }
 
@@ -38,7 +38,16 @@
 .form button {
     font-size: 18px;
     margin-top: 40px;
-    width: 60%;
+    width: 40%;
     height: 40px;
     border-radius: 8px;
+}
+
+.form button:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form button:focus {
+    transform: scale(1.02);
 }

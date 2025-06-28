@@ -1,5 +1,6 @@
-@import "tailwindcss";
+/*@import "tailwindcss";*/
 @import "navigation.css";
 @import "form.css";
+@import "quiz.css";
 
 
