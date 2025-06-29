@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Avatar of You</title>
-</head>
+{% extends 'common/base.html' %}
+
+{% block content %}
 <body>
     <canvas id="myChart" width="400" height="400"></canvas>
 
@@ -25,4 +22,4 @@ const chart = new Chart(ctx, {
 });
 </script>
 </body>
-</html>
+{% endblock %}

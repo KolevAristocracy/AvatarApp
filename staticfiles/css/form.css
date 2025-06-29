@@ -30,10 +30,7 @@
   }
 
 
-.form:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(150, 183, 234, 0.4);
-  }
+
 
 .form button {
     font-size: 18px;
