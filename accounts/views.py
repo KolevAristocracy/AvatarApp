@@ -1,10 +1,11 @@
-from django.contrib.auth.views import LoginView, UserModel
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView
 
 from accounts.forms import CustomUserCreationForm, EditUserForm
-from accounts.models import CustomUser
-from accounts.utils import get_profile
+from accounts.models import CustomUser, Profile
+from accounts.utils import get_customuser
 
 
 # Create your views here.
@@ -12,6 +13,7 @@ class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'accounts/register-user.html'
     success_url = reverse_lazy('index-page')
+    # Uses signal to create the profile
 
 
 # class UserLoginView(LoginView):
@@ -19,20 +21,21 @@ class UserRegisterView(CreateView):
 #     redirect_authenticated_user = True
 #     success_url = reverse_lazy('index-page')
 
-class UserEditView(UpdateView):
-    model = CustomUser
+class UserEditView(LoginRequiredMixin, UpdateView):
+    model = Profile
     form_class = EditUserForm
     template_name = 'accounts/edit-profile.html'
     context_object_name = 'form'
     success_url = reverse_lazy('profile-details')
 
     def get_object(self, queryset = ...):
-        return get_profile(self.request.user.pk)
+        return self.request.user.profile
 
 
-class UserDetailsView(DetailView):
+
+class UserDetailsView(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = 'accounts/profile-details.html'
 
     def get_object(self, queryset = ...):
-        return get_profile(self.request.user.pk)
+        return get_customuser(self.request.user.pk)

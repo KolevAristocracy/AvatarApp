@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from accounts.models import CustomUser
+from accounts.models import Profile
 
 UserModel = get_user_model()
 
@@ -19,9 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class EditUserForm(forms.ModelForm):
     class Meta:
-        model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'age', ]
-        help_texts = {
-            'username': ''
-        }
+        model = Profile
+        fields = ['first_name', 'last_name', 'age', ]
+
 

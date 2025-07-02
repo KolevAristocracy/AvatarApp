@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -7,7 +8,7 @@ from quiz_system.models import UserAnswer
 
 # Create your views here.
 
-
+@login_required
 def dashboard_view(request):
     attributes = Attribute.objects.all()  # Getting all attributes (skills)
     user_answers = UserAnswer.objects.filter(user=request.user)  # get answers for the user who request them

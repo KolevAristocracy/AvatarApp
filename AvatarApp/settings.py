@@ -80,6 +80,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AvatarApp.wsgi.application'
 
+# The way backends are ordered matters!
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.CustomAuthBackend', # Try to authenticate with email
+    'django.contrib.auth.backends.ModelBackend', # Fallback to authenticate with username
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
