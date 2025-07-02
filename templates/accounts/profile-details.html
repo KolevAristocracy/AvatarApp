@@ -5,6 +5,15 @@
         <section id="details">
             <div class="form">
                 <h2>Profile Details</h2>
+                <h3>{{ customuser.username }}</h3>
+                <h3>{{ customuser.email }}</h3>
+                <h3>{{ customuser.profile.first_name }} {{ customuser.profile.last_name }}</h3>
+                <h3>{{ customuser.profile.age }}</h3>
+                <h3>{{ customuser.profile.agreeableness|default:0 }}</h3>
+                <h3>{{ customuser.profile.openness|default:0 }}</h3>
+                <h3>{{ customuser.profile.conscientiousness|default:0 }}</h3>
+                <h3>{{ customuser.profile.extraversion|default:0 }}</h3>
+                <h3>{{ customuser.profile.neuroticism|default:0 }}</h3>
                 <form class="register-form" method="post">
                     {% csrf_token %}
                     {{ form }}
