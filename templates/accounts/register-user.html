@@ -2,16 +2,24 @@
 
 {% block content %}
     <main>
+    {% if not user.is_authenticated %}
         <section id="register">
             <div class="form">
-                <h2>New User's Profile</h2>
+                <h2>Create Profile</h2>
                 <form class="register-form" method="post">
                     {% csrf_token %}
                     {{ form }}
                     <button type="submit">Register</button>
                 </form>
+                <p>Already have a profile?<a href="{% url 'login-user' %}">Login</a></p>
             </div>
-
         </section>
+        {% else %}
+            <section id="register">
+                <div class="form">
+                    <h2>You are already registered!</h2>
+                </div>
+            </section>
+        {% endif %}
     </main>
 {% endblock %}

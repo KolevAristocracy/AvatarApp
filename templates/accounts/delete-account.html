@@ -1,0 +1,26 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+        <main>
+
+            <section id="delete-acc">
+
+                <div class="form">
+                    <!-- A default image -->
+                    <h1>Do you really want to delete your Account?</h1>
+                    <p>*Note: This process is irreversible!</p>
+
+                    <!-- Delete Organizer's Profile Form -->
+                    <form id='delete' class="delete-form" method="post">
+                        {% csrf_token %}
+                        <!-- Confirm Button -->
+                        <button type="submit">Yes, delete it!</button>
+
+                    </form>
+                    <!-- End Delete Form -->
+                </div>
+
+            </section>
+
+        </main>
+{% endblock %}

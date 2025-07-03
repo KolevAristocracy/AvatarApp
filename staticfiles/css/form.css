@@ -48,3 +48,20 @@
 .form button:focus {
     transform: scale(1.02);
 }
+
+.form p a {
+    display: inline-block;
+    margin: 3px;
+    padding: 3px;
+    text-decoration: none;
+    font-style: italic;
+}
+
+form.delete-form button {
+    color: #e4e1e1;
+    background-color: #dc2929;
+}
+
+form.delete-form button:hover {
+    color: white;
+}

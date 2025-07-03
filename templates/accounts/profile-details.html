@@ -5,21 +5,27 @@
         <section id="details">
             <div class="form">
                 <h2>Profile Details</h2>
-                <h3>{{ customuser.username }}</h3>
-                <h3>{{ customuser.email }}</h3>
-                <h3>{{ customuser.profile.first_name }} {{ customuser.profile.last_name }}</h3>
-                <h3>{{ customuser.profile.age }}</h3>
-                <h3>{{ customuser.profile.agreeableness|default:0 }}</h3>
-                <h3>{{ customuser.profile.openness|default:0 }}</h3>
-                <h3>{{ customuser.profile.conscientiousness|default:0 }}</h3>
-                <h3>{{ customuser.profile.extraversion|default:0 }}</h3>
-                <h3>{{ customuser.profile.neuroticism|default:0 }}</h3>
+                <h3>Username: {{ customuser.username }}</h3>
+                <h3>Email: {{ customuser.email }}</h3>
+                {% if customuser.profile.first_name and customuser.profile.last_name %}
+                    <h3>Full Name: {{ customuser.profile.first_name }} {{ customuser.profile.last_name }}</h3>
+                {% endif %}
+                {% if customuser.profile.age %}
+                    <h3>Age: {{ customuser.profile.age}}</h3>
+                {% endif %}
+
+                <h2>Personality traits points</h2>
+                <h3>Agreeableness: {{ customuser.profile.agreeableness|default:0 }}</h3>
+                <h3>Openness: {{ customuser.profile.openness|default:0 }}</h3>
+                <h3>Conscientiousness: {{ customuser.profile.conscientiousness|default:0 }}</h3>
+                <h3>Extraversion: {{ customuser.profile.extraversion|default:0 }}</h3>
+                <h3>Neuroticism: {{ customuser.profile.neuroticism|default:0 }}</h3>
                 <form class="register-form" method="post">
                     {% csrf_token %}
                     {{ form }}
                     <div id="action-buttons">
                         <a href="{% url 'edit-profile' %}" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
+                        <a href="{% url 'delete-account' %}" id="delete-btn">Delete</a>
                     </div>
                 </form>
             </div>
