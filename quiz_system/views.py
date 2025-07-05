@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 
-from quiz_system.models import Question
+from quiz_system.models import Question, Answer
 
 
 # Create your views here.
@@ -14,7 +14,11 @@ class QuizView(LoginRequiredMixin, ListView):
     context_object_name = 'questions'
     template_name = 'quiz/quiz.html'
     login_url = reverse_lazy('login-user')
-
+    
+    def get_context_data(self, *, object_list = None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['answers'] = Answer.objects.all() # Taking my 5 answers
+        return context
 
     def post(self, request, *args, **kwargs):
         request.session['answers'] = request.POST.dict()

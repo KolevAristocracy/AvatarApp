@@ -14,17 +14,16 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
     score = models.PositiveIntegerField()
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     # Using signal to create default answers and score for each question
 
     def __str__(self):
-        return f"{self.text} (+{self.score} {self.attribute})"
+        return f"{self.text} ({self.score})"
 
 
 class UserAnswer(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_answer')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     submitted_at = models.DateTimeField(auto_now_add=True)
