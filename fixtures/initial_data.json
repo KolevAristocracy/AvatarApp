@@ -1,0 +1,162 @@
+[
+  {
+    "model": "quiz_system.question",
+    "pk": 10,
+    "fields": {
+      "text": "I enjoy thinking about abstract ideas.",
+      "attribute": 1
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 11,
+    "fields": {
+      "text": "I often try new activities or travel to unfamiliar places.",
+      "attribute": 1
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 12,
+    "fields": {
+      "text": "I keep my surroundings clean and organized.",
+      "attribute": 2
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 13,
+    "fields": {
+      "text": "I work hard to accomplish my goals.",
+      "attribute": 2
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 14,
+    "fields": {
+      "text": "I feel comfortable around people and enjoy social gatherings.",
+      "attribute": 3
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 15,
+    "fields": {
+      "text": "I have no trouble taking the lead in group situations.",
+      "attribute": 3
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 16,
+    "fields": {
+      "text": "I often feel sympathy for those who are worse off than me.",
+      "attribute": 4
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 17,
+    "fields": {
+      "text": "I avoid being rude even when I feel annoyed.",
+      "attribute": 4
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 18,
+    "fields": {
+      "text": "I frequently worry about future events.",
+      "attribute": 5
+    }
+  },
+  {
+    "model": "quiz_system.question",
+    "pk": 19,
+    "fields": {
+      "text": "I get upset or angry easily.",
+      "attribute": 5
+    }
+  },
+  {
+    "model": "quiz_system.answer",
+    "pk": 1,
+    "fields": {
+      "text": "Strongly agree",
+      "score": 4
+    }
+  },
+  {
+    "model": "quiz_system.answer",
+    "pk": 2,
+    "fields": {
+      "text": "Agree",
+      "score": 3
+    }
+  },
+  {
+    "model": "quiz_system.answer",
+    "pk": 3,
+    "fields": {
+      "text": "Neutral",
+      "score": 2
+    }
+  },
+  {
+    "model": "quiz_system.answer",
+    "pk": 4,
+    "fields": {
+      "text": "Disagree",
+      "score": 1
+    }
+  },
+  {
+    "model": "quiz_system.answer",
+    "pk": 5,
+    "fields": {
+      "text": "Strongly disagree",
+      "score": 0
+    }
+  },
+  {
+    "model": "attributes.attribute",
+    "pk": 1,
+    "fields": {
+      "name": "Openness",
+      "description": "This trait reflects a person's willingness to try new things, embrace new ideas, and be imaginative. High openness is associated with creativity, curiosity, and a preference for variety, while low openness suggests a preference for routine and practicality."
+    }
+  },
+  {
+    "model": "attributes.attribute",
+    "pk": 2,
+    "fields": {
+      "name": "Conscientiousness",
+      "description": "This trait relates to a person's level of organization, diligence, and self-discipline. High conscientiousness indicates a tendency towards being responsible, detail-oriented, and goal-driven, while low conscientiousness might be associated with impulsiveness and a lack of structure."
+    }
+  },
+  {
+    "model": "attributes.attribute",
+    "pk": 3,
+    "fields": {
+      "name": "Extraversion",
+      "description": "Describes how outgoing, sociable, and assertive a person is. Extraverts tend to enjoy social interaction and being the center of attention, while introverts prefer solitude and smaller social settings"
+    }
+  },
+  {
+    "model": "attributes.attribute",
+    "pk": 4,
+    "fields": {
+      "name": "Agreeableness",
+      "description": "Reflects a person's tendency to be kind, compassionate, and cooperative. High agreeableness is associated with empathy, trust, and a desire to help others, while low agreeableness might indicate a more competitive or skeptical nature."
+    }
+  },
+  {
+    "model": "attributes.attribute",
+    "pk": 5,
+    "fields": {
+      "name": "Neuroticism",
+      "description": "Refers to a person's emotional stability and tendency to experience negative emotions like anxiety, sadness, and irritability. High neuroticism is linked to increased emotional reactivity and vulnerability to stress, while low neuroticism suggests greater emotional stability and resilience."
+    }
+  }
+]
