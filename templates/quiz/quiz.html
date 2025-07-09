@@ -2,28 +2,28 @@
 
 {% block content %}
 <div class="content">
-    <h2 class="title">Complete Your Test</h2>
+    <h1 class="title">Complete Your Test</h1>
 
-    <form method="post" class="space-y-10">
+    <form method="post" novalidate>
         {% csrf_token %}
+        {% for field in form %}
+            <div class="question-block">
+                <p class="question-text">{{ field.label }}</p>
 
-        {% for question in questions %}
-            <div class="border-b border-gray-200 pb-6">
-                <p class="text-xl font-medium text-gray-800 mb-4">{{ question.text }}</p>
-
-                <div class="space-y-2">
-                    {% for answer in answers %}
-                        <label class="flex items-center space-x-3">
-                            <input
-                                type="radio"
-                                name="question_{{ question.id }}"
-                                value="{{ answer.id }}"
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                            >
-                            <span class="text-gray-700">{{ answer.text }}</span>
+                <div class="answer-options">
+                    {% for answer in field %}
+                        <label class="answer-option">
+                            {{ answer.tag }}
+                            <span>{{ answer.choice_label }}</span>
                         </label>
                     {% endfor %}
                 </div>
+
+                {% if field.errors %}
+                    <div class="error-message">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
 
@@ -34,7 +34,4 @@
         </div>
     </form>
 </div>
-{% endblock %}
-
-{% block nav %}
 {% endblock %}

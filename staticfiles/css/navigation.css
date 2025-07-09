@@ -152,5 +152,5 @@ footer {
   text-align: center;
   width: 100%;
   bottom: 0;
-  position: fixed;
+  position: sticky;
 }

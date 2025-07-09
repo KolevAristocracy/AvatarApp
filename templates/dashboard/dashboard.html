@@ -2,7 +2,28 @@
 
 {% block content %}
 <body>
-    <canvas id="myChart" width="400" height="400"></canvas>
+<div class="content">
+<h2>Hi, {{ profile.first_name|default:"" }} {{ profile.last_name|default:"" }}</h2>
+<h3>Let's check your Personality Traits</h3>
+    {% for attr_name, score in data.items %}
+
+        <p class="attribute"> {{ attr_name|capfirst }}: {{ score }}</p>
+         {% if score >= 6  %}
+             <p class="attribute"> Level: High</p>
+         {% elif score >= 4 %}
+            <p class="attribute"> Level: Moderate</p>
+         {% else %}
+            <p class="attribute"> Level: Low</p>
+        {% endif %}
+        {# add attribute description here later        #}
+    {% endfor %}
+</div>
+
+
+<div class="chart-js">
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -10,16 +31,21 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const chart = new Chart(ctx, {
     type: 'radar',
     data: {
-        labels: {{ data.keys|safe }},
+        labels: {{ data_labels|safe }},
         datasets: [{
             label: 'Your Skill Map',
-            data: {{ data.values|safe }},
+            data: {{ data_values|safe }},
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgb(54, 162, 235)',
-            borderWidth: 2
+            borderWidth: 3
         }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
     }
 });
 </script>
+
 </body>
 {% endblock %}

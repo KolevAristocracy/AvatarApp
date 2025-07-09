@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <a href="{% url 'start-quiz' %}">Start Test</a>
-                <a href="#">Results and Graphs</a>
+                <a href="{% url 'dashboard' %}">Results and Graphs</a>
             </div>
             <form style="display: none" id="logout-form" method="post" action="{% url 'logout-user' %}">
                 {% csrf_token %}
@@ -45,7 +45,7 @@
 
 
     <footer>
-         <p class="text-gray-700">&copy; 2025 Avatar Project</p>
+         <p>&copy; 2025 Avatar Project</p>
     </footer>
 </body>
 </html>

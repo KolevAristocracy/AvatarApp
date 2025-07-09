@@ -7,7 +7,7 @@ from attributes.models import Attribute
 
 class Question(models.Model):
     text = models.TextField()
-    attributes = models.ManyToManyField(Attribute)
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

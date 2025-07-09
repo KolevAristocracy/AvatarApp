@@ -1,0 +1,10 @@
+div .chart-ks {
+    max-width: 100px;
+}
+
+.chart-container {
+    position: relative;
+    width: 80%; /* Take 80% of parent width */
+    max-width: 600px; /* But not more than 600px */
+    margin: 0 auto; /* Center the container */
+}

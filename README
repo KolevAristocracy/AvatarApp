@@ -1,0 +1,2 @@
+# To load initial quiz data with ready attributes, questions and answers:
+python3 manage.py loaddata fixtures/initial_data.json
