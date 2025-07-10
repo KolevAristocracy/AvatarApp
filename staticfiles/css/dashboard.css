@@ -1,10 +1,30 @@
-div .chart-ks {
-    max-width: 100px;
+.dashboard-container {
+    display: flex;
+    padding: 20px;
+    align-items: flex-start; /* aligns items to the top */
+    gap: 20px; /* adds some space between the chart and the text */
+}
+
+.chart-js {
+    flex: 2; /* takes 2 part of the available space */
+    max-width: 60%;
+}
+
+.dashboard-content {
+    flex: 1;
 }
 
 .chart-container {
     position: relative;
-    width: 80%; /* Take 80% of parent width */
-    max-width: 600px; /* But not more than 600px */
-    margin: 0 auto; /* Center the container */
+    width: 100%;
+    max-width: 1000px;
+}
+
+.attribute-info {
+    width: 100%;
+}
+
+#myChart {
+    width: 800px;
+    height: 600px;
 }

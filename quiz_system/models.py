@@ -19,7 +19,7 @@ class Answer(models.Model):
     # Using signal to create default answers and score for each question
 
     def __str__(self):
-        return f"{self.text} ({self.score})"
+        return f"{self.text}"
 
 
 class UserAnswer(models.Model):

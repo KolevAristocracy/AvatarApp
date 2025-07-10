@@ -1,29 +1,29 @@
 {% extends 'common/base.html' %}
+{% load level_filter %}
 
 {% block content %}
 <body>
-<div class="content">
-<h2>Hi, {{ profile.first_name|default:"" }} {{ profile.last_name|default:"" }}</h2>
-<h3>Let's check your Personality Traits</h3>
-    {% for attr_name, score in data.items %}
+<div class="dashboard-container">
+    <div class="dashboard-content">
+        <h2>Hi, {{ profile.first_name|default:"" }} {{ profile.last_name|default:"" }}</h2>
+        <h3>Let's check your Personality Traits</h3>
+            {% for attr in result %}
 
-        <p class="attribute"> {{ attr_name|capfirst }}: {{ score }}</p>
-         {% if score >= 6  %}
-             <p class="attribute"> Level: High</p>
-         {% elif score >= 4 %}
-            <p class="attribute"> Level: Moderate</p>
-         {% else %}
-            <p class="attribute"> Level: Low</p>
-        {% endif %}
-        {# add attribute description here later        #}
-    {% endfor %}
-</div>
+                <p class="attribute"> {{ attr.name|capfirst }}: {{ attr.score }}</p>
+                {# used custom filter to get the level and remove redundancy#}
+                <p class="attribute">Level: {{ attr.score|get_level }}</p>
+                <p class="attribute-info">{{ attr.description }}</p>
 
-
-<div class="chart-js">
-    <div class="chart-container">
-        <canvas id="myChart"></canvas>
+            {% endfor %}
     </div>
+
+
+    <div class="chart-js">
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
