@@ -16,7 +16,7 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.CharField(max_length=200)
     score = models.PositiveIntegerField()
-    # Using signal to create default answers and score for each question
+    # question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
 
     def __str__(self):
         return f"{self.text}"

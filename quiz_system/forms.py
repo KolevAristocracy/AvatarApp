@@ -7,6 +7,8 @@ class QuizForm(forms.Form):
         self.questions = kwargs.pop('questions')
         super().__init__(*args, **kwargs)
 
+        # relevant_answer_ids = Answer.objects.filter(question__in=self.questions).values_list('pk', flat=True)
+
         for question in self.questions:
             self.fields[f'question_{question.pk}'] = forms.ModelChoiceField(
                 queryset=Answer.objects.all(), # 5 answers
@@ -15,14 +17,3 @@ class QuizForm(forms.Form):
                 empty_label=None,
                 required=True,
             )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        for question in self.questions:
-            field_name = f'question_{question.pk}'
-            if field_name not in cleaned_data or not cleaned_data[field_name]: # checking if all questions are answered
-                self.add_error(field_name, 'Please select an answer for the question.')
-
-        return cleaned_data
-
-

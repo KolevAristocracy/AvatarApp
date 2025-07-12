@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 
+from attributes.models import Attribute
 from quiz_system.forms import QuizForm
 from quiz_system.models import Question, Answer, UserAnswer
 
@@ -24,104 +26,85 @@ class QuizView(LoginRequiredMixin, ListView):
 
         # ListView automatically provides the paginated questions in the page_obj
         questions_per_page = context['page_obj']
-        context['form'] = QuizForm(questions=questions_per_page)
+        page_obj = context['page_obj']
+        context['form'] = self.get_form(page_obj)
         return context
 
-    def post(self, request, *args, **kwargs):
-        # Get the paginator and the current page object
-        queryset = self.get_queryset()
-        paginator = self.get_paginator(queryset, self.paginate_by)
-        page_number = request.GET.get('page', 1)
-        page_obj = paginator.get_page(page_number)
+    def get_form(self, page_obj, data=None):
+        return QuizForm(data, questions=page_obj)
 
-        # Create a form instance with the submitted data and the questions for the current page
-        form = QuizForm(request.POST, questions=page_obj)
+    def post(self, request: HttpRequest, *args, **kwargs):
+        page_obj = self._get_page_obj(request)
+        form = self.get_form(page_obj, request.POST)
 
-        # Manually check if all questions are answered
-        all_questions_answered = True
-        for question in page_obj:
-            field_name = f"question_{question.pk}"
-            # If field for question on this page is missing from the POST data,
-            # therefore the user did not answer it
-            if not request.POST.get(field_name):
-                all_questions_answered = False
-                break # stop at the first missing answer
-
-        if not all_questions_answered:
+        if not form.is_valid():
             messages.error(request, 'Please answer all questions before proceeding.')
-            # Render the current page, passing the form back.
-            # The form contains the user's submitted data
-            return render(
-                request,
-                self.template_name,
-                {
-                    'form': form,
-                    'page_obj': page_obj
-                }
-            )
+            return render(request, self.template_name, {'form': form, 'page_obj': page_obj})
 
         # If validation passes, saving the answers to the session
+        self._save_answers_to_session(request, form.cleaned_data)
+
+        if page_obj.has_next():
+            return redirect(f'{request.path}?page={page_obj.next_page_number()}')
+        else:
+            self._finalize_quiz(request)
+            return redirect('dashboard')
+
+
+    def _get_page_obj(self, request: HttpRequest):
+        paginator = self.get_paginator(self.get_queryset(), self.paginate_by)
+        page_number = request.GET.get('page', 1)
+        return paginator.get_page(page_number)
+
+    def _save_answers_to_session(self, request: HttpRequest, cleaned_data):
         quiz_answers = request.session.get('quiz_answers', {})
 
-        for question in page_obj:
-            field_name = f'question_{question.pk}'
-            answer_id = request.POST.get(field_name)
-            if answer_id:
-                quiz_answers[str(question.pk)] = answer_id
+        for field_name ,answer in cleaned_data.items():
+            question_pk = field_name.replace('question_', '')
+            quiz_answers[question_pk] = str(answer.pk)
 
         request.session['quiz_answers'] = quiz_answers
 
-        if page_obj.has_next():
-            next_page_number = page_obj.next_page_number()
-            return redirect(f'{request.path}?page={next_page_number}')
-        else:
+    def _finalize_quiz(self, request):
+        # Deleting old test score
+        UserAnswer.objects.filter(user=request.user).delete()
 
-            # Delete previous answers for current user
-            UserAnswer.objects.filter(user=request.user).delete()
+        scores = {attr.name.lower(): 0 for attr in  Attribute.objects.all()}
+        answer_data = request.session.get('quiz_answers', {})
 
-            scores = {
-                'openness': 0,
-                'conscientiousness': 0,
-                'extraversion': 0,
-                'agreeableness': 0,
-                'neuroticism': 0,
-            }
+        question_ids = list(map(int, answer_data.keys()))
+        answer_ids = list(map(int, answer_data.values()))
 
-            user_answers_to_create = []
+        questions = Question.objects.in_bulk(question_ids)
+        answers = Answer.objects.in_bulk(answer_ids)
 
-            all_answers = request.session.get('quiz_answers', {})
+        user_answers = []
 
-            all_questions = Question.objects.in_bulk(list(all_answers.keys()))
-            all_db_answers = Answer.objects.in_bulk(list(all_answers.values()))
+        for q_id, a_id in answer_data.items():
+            question = questions.get(int(q_id))
+            answer = answers.get(int(a_id))
+            if question and answer:
+                user_answers.append(UserAnswer(user=request.user, question=question, answer=answer))
+                attr_name = question.attribute.name.lower()
+                if attr_name in scores:
+                    scores[attr_name] += answer.score
 
-            for question_pk, answer_pk in all_answers.items():
-                question = all_questions.get(int(question_pk))
-                answer = all_db_answers.get(int(answer_pk))
-                if question and answer:
-                    user_answers_to_create.append(
-                        UserAnswer(user=request.user, question=question, answer=answer)
-                    )
+        UserAnswer.objects.bulk_create(user_answers)
 
-                    # Adding scores data
-                    attribute_name = question.attribute.name.lower()
-                    if attribute_name in scores:
-                        scores[attribute_name] += answer.score
+        # Save scores to user profile
 
-            # Bulk create UserAnswer objects for better performance
-            UserAnswer.objects.bulk_create(user_answers_to_create)
+        profile = request.user.profile
+        profile.openness = scores['openness']
+        profile.conscientiousness = scores['conscientiousness']
+        profile.extraversion = scores['extraversion']
+        profile.agreeableness = scores['agreeableness']
+        profile.neuroticism = scores['neuroticism']
+        profile.save()
 
-            # Update user's Profile with the scores
-            profile = request.user.profile
-            profile.openness = scores['openness']
-            profile.conscientiousness = scores['conscientiousness']
-            profile.extraversion = scores['extraversion']
-            profile.agreeableness = scores['agreeableness']
-            profile.neuroticism = scores['neuroticism']
-            profile.save()
+        # Clear session
+        request.session.pop('quiz_answers', None)
 
-            del request.session['quiz_answers']
 
-            return redirect(reverse_lazy('dashboard'))
 
 
 # def start_quiz(request):
