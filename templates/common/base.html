@@ -12,6 +12,7 @@
         <nav>
             <div class="topnav">
                 <a class="pos-left" href="{% url 'index-page' %}">Home</a>
+                <a class="pos-left" href="{% url 'contact-page' %}">Contacts</a>
                 <div class="dropdown">
                     <button class="dropbtn">My Profile
                         <i class="fa fa-caret-down"></i>
@@ -23,8 +24,10 @@
                         ('logout-form').submit()" class="menu-link">Logout</a>
                     </div>
                 </div>
+
                 <a href="{% url 'start-quiz' %}">Start Test</a>
                 <a href="{% url 'dashboard' %}">Results and Graphs</a>
+
             </div>
             <form style="display: none" id="logout-form" method="post" action="{% url 'logout-user' %}">
                 {% csrf_token %}
@@ -36,6 +39,7 @@
                 <a class="pos-left" href="{% url 'index-page' %}">Home</a>
                 <a href="{% url 'login-user' %}">Login</a>
                 <a href="{% url 'register-user' %}">Register</a>
+                <a href="{% url 'contact-page' %}">Contacts</a>
             </div>
         </nav>
     {% endif %}

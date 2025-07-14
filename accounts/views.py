@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, FormView
 
-from accounts.forms import CustomUserCreationForm, EditUserForm, ChangePasswordForm
+from accounts.forms import CustomUserCreationForm, EditUserForm, ChangePasswordForm, CustomAuthenticationForm
 from accounts.models import CustomUser, Profile
 from accounts.utils import get_customuser
 
@@ -20,6 +20,7 @@ class UserRegisterView(CreateView):
 
 class UserLoginView(LoginView):
     template_name = 'accounts/login-user.html'
+    form_class = CustomAuthenticationForm
     redirect_authenticated_user = True
 
 class UserEditView(LoginRequiredMixin, UpdateView):

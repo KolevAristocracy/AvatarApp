@@ -2,6 +2,7 @@
 
 {% block content %}
     <div class="form">
+        {% include 'common/messages.html' %}
         <h2>Submit Feedback</h2>
         <form method="post">
             {% csrf_token %}

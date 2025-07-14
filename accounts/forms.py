@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model, password_validation
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from accounts.models import Profile, CustomUser
 
@@ -16,6 +16,13 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].help_text = ''
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    def __init__(self, request=None, *args, **kwargs):
+        super().__init__(request=None, *args, **kwargs)
+        self.fields['username'].label = 'Username or Email'
+
 
 class EditUserForm(forms.ModelForm):
     class Meta:
@@ -57,3 +64,24 @@ class ChangePasswordForm(forms.Form):
                 raise forms.ValidationError("The new passwords do not match.")
             password_validation.validate_password(new_password1, self.user)
         return cleaned_data
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField(
+        label="Your Email",
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Enter your email",
+            }
+        ),
+    )
+
+    message = forms.CharField(
+        label="Message",
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": "Enter your message here...",
+                'rows': 5,
+            }
+        ),
+    )

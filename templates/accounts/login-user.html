@@ -2,9 +2,9 @@
 
 {% block content %}
     <main>
-
         <section id="login">
             <div class="form">
+                {% include 'common/messages.html' %}
                 <h2>Login in Your Profile</h2>
                 <form class="login-form" method="post">
                     {% csrf_token %}
