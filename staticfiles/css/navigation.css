@@ -144,6 +144,14 @@ a#delete-btn {
   background-color: #dc2929;
 }
 
+a#change-pwd-btn {
+  background-color: #7a9544;
+}
+
+a#feedback-btn {
+  background-color: #7a9544;
+}
+
 div#action-buttons a:hover {
   color: white;
 }

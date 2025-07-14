@@ -1,6 +1,7 @@
 from django import forms
 
-from quiz_system.models import Answer
+from quiz_system.models import Answer, Feedback
+
 
 class QuizForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -17,3 +18,15 @@ class QuizForm(forms.Form):
                 empty_label=None,
                 required=True,
             )
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['message']
+        widgets = {
+            'message': forms.Textarea(attrs={'rows': 4}),
+        }
+        labels = {
+            'message': 'Your Feedback',
+        }

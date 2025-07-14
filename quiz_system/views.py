@@ -3,14 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 from attributes.models import Attribute
-from quiz_system.forms import QuizForm
-from quiz_system.models import Question, Answer, UserAnswer
+from quiz_system.forms import QuizForm, FeedbackForm
+from quiz_system.models import Question, Answer, UserAnswer, Feedback
 
-
-# Create your views here.
 
 class QuizView(LoginRequiredMixin, ListView):
     model = Question
@@ -25,7 +23,6 @@ class QuizView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # ListView automatically provides the paginated questions in the page_obj
-        questions_per_page = context['page_obj']
         page_obj = context['page_obj']
         context['form'] = self.get_form(page_obj)
         return context
@@ -102,20 +99,15 @@ class QuizView(LoginRequiredMixin, ListView):
         profile.save()
 
         # Clear session
-        request.session.pop('quiz_answers', None)
+        del request.session['quiz_answers']
 
 
+class FeedbackCreateView(LoginRequiredMixin, CreateView):
+    model = Feedback
+    form_class = FeedbackForm
+    template_name = 'quiz/feedback.html'
+    success_url = reverse_lazy('dashboard')
 
-
-# def start_quiz(request):
-#     questions = Question.objects.prefetch_related('answer_set').all()
-#
-#     context = {
-#         'questions': questions,
-#     }
-#
-#     if request.method == "POST":
-#         request.session['answers'] = request.POST
-#         return redirect('dashboard/result.html')
-#
-#     return render(request, 'quiz/quiz.html', context)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

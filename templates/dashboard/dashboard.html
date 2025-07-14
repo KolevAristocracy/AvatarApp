@@ -15,14 +15,18 @@
                 <p class="attribute-info">{{ attr.description }}</p>
 
             {% endfor %}
+
+        <div id="action-buttons">
+            <h5> Give your Feedback, It's important for us:</h5>
+            <a href="{% url 'quiz-feedback' %}" id="feedback-btn">Send Feedback</a>
+        </div>
     </div>
-
-
     <div class="chart-js">
         <div class="chart-container">
             <canvas id="myChart"></canvas>
         </div>
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

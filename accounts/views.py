@@ -1,9 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, FormView
 
-from accounts.forms import CustomUserCreationForm, EditUserForm
+from accounts.forms import CustomUserCreationForm, EditUserForm, ChangePasswordForm
 from accounts.models import CustomUser, Profile
 from accounts.utils import get_customuser
 
@@ -30,6 +31,25 @@ class UserEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset = ...):
         return self.request.user.profile
+
+
+class ChangePasswordView(LoginRequiredMixin, FormView):
+    template_name = 'accounts/change-password.html'
+    form_class = ChangePasswordForm
+    success_url = reverse_lazy('login-user') # after changing password, need to login again
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        self.request.user.set_password(form.cleaned_data['new_password1'])
+        self.request.user.save()
+        change_successfully_msg = "Password changed successfully. Please log in again."
+        messages.success(self.request, message=change_successfully_msg)
+        return super().form_valid(form)
+
 
 
 
