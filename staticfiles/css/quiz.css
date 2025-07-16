@@ -4,27 +4,19 @@
     padding: 30px;
 }
 
-.quiz-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.question-block {
+div.question {
+    text-align: left;
+    padding: 5px 10px;
     margin-bottom: 30px;
-    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
 
-.question-text {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
 
-.answer-options {
+div.question div {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 .answer-option {
@@ -34,18 +26,13 @@
     cursor: pointer;
 }
 
-.error-message {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 8px;
-}
 
-.submit-button {
+div.pagination {
     text-align: center;
     margin-top: 30px;
 }
 
-.submit-button button {
+.btn-3 {
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #1e90ff;
@@ -53,8 +40,9 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.submit-button button:hover {
+.btn-3:hover {
     background-color: #006edc;
 }
