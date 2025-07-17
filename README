@@ -1,2 +1,147 @@
-# To load initial quiz data with ready attributes, questions and answers:
+# AvatarApp - Django Advanced Project
+
+This is a personality quiz application built with Django as part of the Django Advanced course final exam.
+
+## 🎯 Project Goal
+
+Users take a personality quiz and receive calculated trait scores (Big Five model). The app saves answers, displays user dashboards, allows feedback submission, and includes contact support.
+
+---
+
+## ✅ Features
+
+### 👥 User Authentication
+
+* Register / Login / Logout
+* Profile editing
+* Password change (via class-based view)
+
+### 🧠 Personality Quiz
+
+* 20+ questions, paginated (4 per page)
+* Requires answering all questions before proceeding
+* Results saved per user session
+* Final score updates user profile traits
+
+### 📬 Forms
+
+* QuizForm
+* FeedbackForm
+* ContactForm
+* EditUserForm
+* ChangePasswordForm
+
+### 🧾 Admin Panel
+
+* Customized with list filters, ordering, and search
+* 2 groups: SuperAdmin (full CRUD), Staff (limited access)
+* Group-based permission control
+
+### 📈 Dashboard
+
+* Displays user's personality trait scores
+* Encourages user engagement and feedback
+
+---
+
+## 🗂️ Project Structure (Key Apps)
+
+* `accounts/` - Custom user model and profile
+* `quiz_system/` - Core quiz models and logic
+* `dashboard/` - Dashboard view and score display
+* `common/` - Contact page and homepage
+* `feedback/` - Feedback submission
+
+---
+
+## 🛠️ Setup Instructions
+
+1. Clone the repo:
+
+```bash
+git clone <repo_url>
+cd AvatarApp
+```
+
+2. Create and activate virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+```
+
+3. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Run migrations:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+5. Create superuser:
+
+```bash
+python manage.py createsuperuser
+```
+6.
+``` To load initial quiz data with ready attributes, questions and answers:
 python3 manage.py loaddata fixtures/initial_data.json
+```
+
+7. Run the server:
+
+```bash
+python manage.py runserver
+```
+
+8. Access the app:
+
+* Frontend: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+* Admin: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+---
+
+## 👥 Admin Roles Setup
+
+* **SuperAdmin**: Full access (is\_superuser)
+* **Staff**: Limited CRUD (view/edit `UserAnswer`, `Feedback` only)
+
+Assign users to groups via the Django Admin > Users > Groups.
+
+---
+
+## 📊 Models
+
+* `Attribute`
+* `Question`
+* `Answer`
+* `UserAnswer`
+* `Feedback`
+* `CustomUser` & `Profile`
+
+---
+
+## 💡 Bonus Ideas (Not required)
+
+* REST API for mobile integration
+* Leaderboard or comparison system
+* Export results as PDF
+
+---
+
+## 🙋 Author
+
+**Kalin Kolev** - Django Advanced Course Final Project
+
+---
+
+## 📃 License
+
+This project is for educational use under the Django Advanced Course at SoftUni or equivalent.
+
+

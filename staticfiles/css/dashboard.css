@@ -14,6 +14,13 @@
     flex: 1;
 }
 
+section.dashboard-section {
+    border: 1px solid #404149;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin: 30px;
+}
+
 .chart-container {
     position: relative;
     width: 100%;

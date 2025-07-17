@@ -159,6 +159,5 @@ div#action-buttons a:hover {
 footer {
   text-align: center;
   width: 100%;
-  bottom: 0;
   position: sticky;
 }

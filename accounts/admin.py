@@ -9,8 +9,9 @@ UserModel = get_user_model()
 # Register your models here.
 @admin.register(UserModel)
 class UserModelAdmin(UserAdmin):
-    list_display = ['username', 'email']
-    form = CustomUserCreationForm
+    list_display = ["username", "email"]
+    add_form = CustomUserCreationForm
+    readonly_fields = ["password"]
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
@@ -29,13 +30,12 @@ class UserModelAdmin(UserAdmin):
         ),
         (("Important Dates"), {"fields": ("last_login",)}),
     )
-
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "email" "password1", "password2"),
+                "fields": ("username", "email", "password1", "password2"),
             },
         ),
     )

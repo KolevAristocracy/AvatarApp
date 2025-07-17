@@ -8,12 +8,12 @@
         <h2>Hi, {{ profile.first_name|default:"" }} {{ profile.last_name|default:"" }}</h2>
         <h3>Let's check your Personality Traits</h3>
             {% for attr in result %}
-
-                <p class="attribute"> {{ attr.name|capfirst }}: {{ attr.score }}</p>
+            <section class="dashboard-section">
+                <p class="attribute"> <strong>{{ attr.name|capfirst }}: {{ attr.score }}</strong></p>
                 {# used custom filter to get the level and remove redundancy#}
                 <p class="attribute">Level: {{ attr.score|get_level }}</p>
                 <p class="attribute-info">{{ attr.description }}</p>
-
+            </section>
             {% endfor %}
 
         <div id="action-buttons">
