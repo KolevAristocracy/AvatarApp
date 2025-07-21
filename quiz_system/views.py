@@ -24,6 +24,18 @@ class QuizView(LoginRequiredMixin, ListView):
 
         # ListView automatically provides the paginated questions in the page_obj
         page_obj = context['page_obj']
+        current_page = page_obj.number
+
+        # Preventing user to skip to the last page of quiz without answer all questions
+        last_allowed_page = self.request.session.get('quiz_last_page', 1)
+
+        if current_page > last_allowed_page:
+            messages.warning(self.request, "Please complete the quiz in order.")
+            paginator = self.get_paginator(self.get_queryset(), self.paginate_by)
+            page_obj = paginator.get_page(last_allowed_page)
+            context['page_obj'] = page_obj
+            current_page = last_allowed_page
+
         context['form'] = self.get_form(page_obj)
         return context
 
@@ -42,8 +54,10 @@ class QuizView(LoginRequiredMixin, ListView):
         self._save_answers_to_session(request, form.cleaned_data)
 
         if page_obj.has_next():
+            request.session['quiz_last_page'] = page_obj.next_page_number()
             return redirect(f'{request.path}?page={page_obj.next_page_number()}')
         else:
+            request.session.pop('quiz_last_page', None)
             self._finalize_quiz(request)
             return redirect('dashboard')
 

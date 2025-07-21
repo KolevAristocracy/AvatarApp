@@ -3,6 +3,7 @@
 
 {% block content %}
  <div class="quiz-container">
+    {% include 'common/messages.html' %}
     <progress value="{{ page_obj.number }}" max="{{ page_obj.paginator.num_pages }}"></progress>
 
 
