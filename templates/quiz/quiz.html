@@ -1,53 +1,46 @@
 {% extends 'common/base.html' %}
+{% load quiz_filters %}
 
 {% block content %}
-<div class="content">
-    <h1 class="title">Complete Your Test</h1>
+ <div class="quiz-container">
+    {% include 'common/messages.html' %}
+    <progress value="{{ page_obj.number }}" max="{{ page_obj.paginator.num_pages }}"></progress>
 
-    <form method="post" novalidate>
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="question-block">
-                <p class="question-text">{{ field.label }}</p>
 
-                <div class="answer-options">
-                    {% for answer in field %}
-                        <label class="answer-option">
-                            {{ answer.tag }}
-                            <span>{{ answer.choice_label }}</span>
-                        </label>
-                    {% endfor %}
-                </div>
+     <form method="post" action="">
+         {% csrf_token %}
 
-                {% if field.errors %}
-                    <div class="error-message">
-                        {{ field.errors|striptags }}
-                    </div>
-                {% endif %}
+         <h3>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</h3>
+
+         {% for question in page_obj %}
+            <div class="question">
+                <p><strong>{{ question.text }}</strong></p>
+
+                {% with field=form|get_question_field:question.pk %}
+                    {% if field %}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="error">{{ field.errors.0 }}</div>
+                        {% endif %}
+                    {% else %}
+                        <div class="error">Error: Field not found for question {{ question.pk }}</div>
+                    {% endif %}
+                {% endwith %}
             </div>
         {% endfor %}
 
-        <div class="submit-answers">
-            <button type="submit" class="btn-2">
-                Submit Your Answers
-            </button>
-        </div>
-    </form>
+         <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn-3">Previous Page</a>
+            {% endif %}
 
-    <div class="pagination">
-         <span class="step-links">
-             {% if page_obj.has_previous %}
-                <a href="?page=1&query={{ query }}">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}&query={{ query }}">previous</a>
-             {% endif %}
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
              {% if page_obj.has_next %}
-                 <a href="?page={{ page_obj.next_page_number }}&query={{ query }}">next</a>
-                 <a href="?page={{ page_obj.paginator.num_pages }}&query={{ query }}">last &raquo;</a>
+                 <button type="submit" class="btn-3">Next Page</button>
+             {% else %}
+                 <button type="submit" class="btn-3">Finish & See Results</button>
              {% endif %}
-         </span>
-    </div>
-</div>
-{% endblock %}
+         </div>
+     </form>
+
+ </div>
+ {% endblock %}
