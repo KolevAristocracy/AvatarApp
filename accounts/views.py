@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, FormView
-
 from accounts.forms import CustomUserCreationForm, EditUserForm, ChangePasswordForm, CustomAuthenticationForm
 from accounts.models import CustomUser, Profile
 from accounts.utils import get_customuser
@@ -52,8 +51,6 @@ class ChangePasswordView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-
-
 class UserDetailsView(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = 'accounts/profile-details.html'
@@ -69,3 +66,8 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_object(self, queryset = ...):
         return get_customuser(self.request.user.pk)
+
+
+
+
+
