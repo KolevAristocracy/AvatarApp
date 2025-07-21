@@ -12,7 +12,7 @@ from quiz_system.models import Question, Answer, UserAnswer, Feedback
 
 class QuizView(LoginRequiredMixin, ListView):
     model = Question
-    template_name = 'quiz/quiz_test.html'
+    template_name = 'quiz/quiz.html'
     login_url = reverse_lazy('login-user')
     paginate_by = 4
 
@@ -44,6 +44,15 @@ class QuizView(LoginRequiredMixin, ListView):
 
     def post(self, request: HttpRequest, *args, **kwargs):
         page_obj = self._get_page_obj(request)
+        current_page = page_obj.number
+        last_allowed_page = request.session.get('quiz_last_page', 1)
+
+        # Prevent skipping pages
+        if current_page > last_allowed_page:
+            messages.warning(request, "Please complete the quiz in order.")
+            return redirect(f"{request.path}?page={last_allowed_page}")
+
+
         form = self.get_form(page_obj, request.POST)
 
         if not form.is_valid():

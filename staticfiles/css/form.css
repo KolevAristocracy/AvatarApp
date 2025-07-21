@@ -16,7 +16,7 @@
 
 
 .form input {
-    border-radius: 12px;
+    border-radius: 6px;
     border: 1px solid rgb(92, 102, 113);
     width: 250px;
     height: 30px;
@@ -33,16 +33,19 @@
 
 
 .form button {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 40px;
-    width: 40%;
-    height: 40px;
+    width: 35%;
+    height: 35px;
     border-radius: 8px;
+    border: 1px #202049;
+    background-color: #006edc;
+    color: #ede7e7;
 }
 
 .form button:hover {
-    transform: scale(1.03);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #0d79e6;
+    color: #ffffff;
 }
 
 .form button:focus {
