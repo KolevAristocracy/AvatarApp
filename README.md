@@ -36,4 +36,4 @@ Visit: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ---
 
-Project by **Kalin Kolev** for the Django Advanced Course Final Exam ✅
+Project by **Kalin Kolev** for the Django Advanced Course Final Exam
