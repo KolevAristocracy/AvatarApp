@@ -9,4 +9,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        exclude = ['user', 'age']
+        exclude = ['user', 'age', 'id']

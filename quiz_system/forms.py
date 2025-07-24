@@ -8,7 +8,6 @@ class QuizForm(forms.Form):
         self.questions = kwargs.pop('questions')
         super().__init__(*args, **kwargs)
 
-        # relevant_answer_ids = Answer.objects.filter(question__in=self.questions).values_list('pk', flat=True)
 
         for question in self.questions:
             self.fields[f'question_{question.pk}'] = forms.ModelChoiceField(
@@ -25,7 +24,7 @@ class FeedbackForm(forms.ModelForm):
         model = Feedback
         fields = ['message']
         widgets = {
-            'message': forms.Textarea(attrs={'rows': 4}),
+            'message': forms.Textarea(attrs={'rows': 6}),
         }
         labels = {
             'message': 'Your Feedback',

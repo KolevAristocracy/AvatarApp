@@ -21,7 +21,7 @@ class UserAnswerAdmin(admin.ModelAdmin):
     list_filter = ['answer', 'question', 'user', 'submitted_at']
     ordering = ['-submitted_at', 'user','question']
     search_fields = ['user__username', 'answer__text', 'question__text']
-    readonly_fields = ['user', 'question', 'answer', 'submitted_at']
+    readonly_fields = ['submitted_at']
 
 
 @admin.register(Feedback)
