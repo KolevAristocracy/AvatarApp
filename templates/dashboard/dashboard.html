@@ -16,11 +16,15 @@
             </section>
             {% endfor %}
 
+        <button onclick="window.print()" class="btn-3">🖨️ Print Your Results</button>
+
+
         <div id="action-buttons">
             <h5> Give your Feedback, It's important for us:</h5>
             <a href="{% url 'quiz-feedback' %}" id="feedback-btn">Send Feedback</a>
         </div>
     </div>
+
     <div class="chart-js">
         <div class="chart-container">
             <canvas id="myChart"></canvas>

@@ -1,9 +1,42 @@
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only the result section */
+  .dashboard-content, .dashboard-content * {
+    visibility: visible;
+  }
+
+  .btn-3, #feedback-btn, h5 {
+      visibility: hidden;
+      display: none;
+  }
+
+  /* Position the visible part properly */
+  .dashboard-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  /* Optional: prevent page breaks inside results */
+  .dashboard-content {
+    page-break-inside: avoid;
+  }
+}
+
+
+
 .dashboard-container {
     display: flex;
     padding: 20px;
     align-items: flex-start; /* aligns items to the top */
     gap: 20px; /* adds some space between the chart and the text */
 }
+
 
 .chart-js {
     flex: 2; /* takes 2 part of the available space */
