@@ -1,11 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import DetailView
 
 from accounts.models import Profile
 from attributes.models import Attribute
-from quiz_system.models import UserAnswer
 
 
 # Create your views here.

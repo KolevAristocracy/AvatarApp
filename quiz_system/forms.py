@@ -4,6 +4,7 @@ from quiz_system.models import Answer, Feedback
 
 
 class QuizForm(forms.Form):
+
     def __init__(self, *args, **kwargs):
         self.questions = kwargs.pop('questions')
         super().__init__(*args, **kwargs)
@@ -16,6 +17,9 @@ class QuizForm(forms.Form):
                 label=question.text,
                 empty_label=None,
                 required=True,
+                error_messages={
+                    'required': 'This is a must!',
+                },
             )
 
 

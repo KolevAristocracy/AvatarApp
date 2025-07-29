@@ -9,7 +9,7 @@
     visibility: visible;
   }
 
-  .btn-3, #feedback-btn, h5 {
+  .print-btn, #feedback-btn, h5 {
       visibility: hidden;
       display: none;
   }
@@ -35,6 +35,22 @@
     padding: 20px;
     align-items: flex-start; /* aligns items to the top */
     gap: 20px; /* adds some space between the chart and the text */
+}
+
+.print-btn {
+    padding: 10px 20px;
+    margin-left: 30px;
+    font-size: 16px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.print-btn:hover {
+    color: #eaeaea;
 }
 
 

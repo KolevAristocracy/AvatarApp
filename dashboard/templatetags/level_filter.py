@@ -4,6 +4,9 @@ register = template.Library()
 
 @register.filter(name='get_level')
 def get_level(score):
+    if not score:
+        score = 0
+
     if score >= 6:
         return 'High'
     elif score >= 4:

@@ -54,7 +54,6 @@ class QuizView(LoginRequiredMixin, ListView):
 
 
         form = self.get_form(page_obj, request.POST)
-
         if not form.is_valid():
             messages.error(request, 'Please answer all questions before proceeding.')
             return render(request, self.template_name, {'form': form, 'page_obj': page_obj})
