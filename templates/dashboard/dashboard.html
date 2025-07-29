@@ -9,7 +9,7 @@
         <h3>Let's check your Personality Traits</h3>
             {% for attr in result %}
             <section class="dashboard-section">
-                <p class="attribute"> <strong>{{ attr.name|capfirst }}: {{ attr.score }}</strong></p>
+                <p class="attribute"> <strong>{{ attr.name|capfirst }}: {{ attr.score|default:0 }}</strong></p>
                 {# used custom filter to get the level and remove redundancy#}
                 <p class="attribute">Level: {{ attr.score|get_level }}</p>
                 <p class="attribute-info">{{ attr.description }}</p>
