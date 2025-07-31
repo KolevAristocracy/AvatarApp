@@ -49,11 +49,13 @@ class Profile(models.Model):
     )
 
     first_name = models.CharField(
+        max_length=30,
         null=True,
         blank=True,
     )
 
     last_name = models.CharField(
+        max_length=30,
         null=True,
         blank=True,
     )
