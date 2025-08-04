@@ -43,6 +43,10 @@
     color: #ede7e7;
 }
 
+.form #ch-pwd {
+    height: 55px;
+}
+
 .form button:hover {
     background-color: #0d79e6;
     color: #ffffff;
